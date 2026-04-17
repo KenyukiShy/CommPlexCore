@@ -1,0 +1,101 @@
+# ============================================================
+# config.yaml — Arc Fleet Campaign Configuration
+# Fill this out as an alternative to running setup_wizard.py
+# Then run: python config_from_yaml.py  to write .env
+# ============================================================
+
+# ── SENDER IDENTITY ──────────────────────────────────────────
+identity:
+  name:       "Kenyon Jones"
+  email:      "kjonesmle@gmail.com"
+  phone:      "7018705235"
+  alt_name:   "Cynthia Ennis"
+  alt_phone:  "7019465731"
+
+# ── EMAIL ────────────────────────────────────────────────────
+email:
+  method: "both"           # api | smtp | both
+  # Gmail API
+  credentials_json:  "credentials.json"    # Path to OAuth2 creds JSON
+  # SMTP fallback
+  smtp_user:     "kjonesmle@gmail.com"
+  smtp_password: ""                         # Your 16-char Gmail App Password
+
+# ── GCP ──────────────────────────────────────────────────────
+gcp:
+  enabled:        true
+  project_id:     "arc-fleet-campaign"
+  region:         "us-central1"
+  bucket:         "arc-fleet-assets"
+  service_account_json: "service-account.json"
+
+# ── TWILIO ───────────────────────────────────────────────────
+twilio:
+  enabled:        false     # Set to true once you have credentials
+  account_sid:    ""        # ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  auth_token:     ""        # Secret — prefer to set via env var
+  from_number:    ""        # +1xxxxxxxxxx
+
+# ── BLAND.AI ─────────────────────────────────────────────────
+bland:
+  enabled:        false     # Set to true once you have credentials
+  api_key:        ""        # Secret — prefer to set via env var
+  phone_number:   ""        # +1xxxxxxxxxx (your Bland number)
+  transfer_to:    "7018705235"    # Kenyon direct — hardcoded in stubs.py
+
+# ── DEPLOYMENT ───────────────────────────────────────────────
+deployment:
+  target:       "local"     # local | gcp | codespaces | docker
+  port:          8080
+  debug:         false
+
+# ── CAMPAIGN SETTINGS ────────────────────────────────────────
+campaign:
+  default_dry_run:       true
+  formfill_submit:       false    # DANGER: only enable after screenshot review
+  rate_limit_delay:      2.0      # Seconds between emails
+  formfill_concurrency:  3        # Parallel Playwright sessions
+  formfill_delay:        2.0      # Seconds between batches
+
+# ── USERS ────────────────────────────────────────────────────
+users:
+  admin:
+    - email: "kjonesmle@gmail.com"
+      name:  "Kenyon Jones"
+  dev:
+    - email: ""    # Charles's Gmail
+      name:  "Charles"
+  client:
+    - email: ""    # Cynthia's Gmail
+      name:  "Cynthia Ennis"
+  remote:
+    - email: ""    # Justin's Gmail
+      name:  "Justin"
+
+# ── VEHICLES (read-only reference) ───────────────────────────
+vehicles:
+  mkz:
+    display:    "2016 Lincoln MKZ Hybrid"
+    vin:        "3LN6L2LUXGR630397"
+    location:   "Lucky's Towing, Beulah ND"
+    asking:     "$3,500–$5,500"
+    priority:   true
+    alert:      "At Lucky's since Jan 2026 — send Lucky's offer FIRST"
+  towncar:
+    display:    "1988 Lincoln Town Car Signature"
+    vin:        "1LNBM82FXJY779113"
+    location:   "Hazen/Beulah ND"
+    asking:     "$10,000–$14,000"
+    bat_target: true
+  f350:
+    display:    "2006 Ford F-350 King Ranch V10"
+    vin:        "1FTWW31Y86EA12357"
+    location:   "Douglasville GA"
+    asking:     "$20,000–$30,000"
+    onsite:     "Doug & Sherrie Appleby | (770) 315-1949"
+  jayco:
+    display:    "2017 Jayco Eagle HT 26.5BHS"
+    vin:        "1UJCJ0BPXH1P20237"
+    location:   "Douglasville GA"
+    asking:     "$26,500"
+    onsite:     "Doug & Sherrie Appleby | (770) 315-1949"
